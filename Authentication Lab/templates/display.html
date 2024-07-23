@@ -9,8 +9,8 @@
 
 	<h1> Qoutes:</h1>
 
-{%for i in quotesl%}
-<h1>{{i}}</h1>
+{%for i in quotesl.values()%}
+<h1>{{i['saidby'] ,i['quote']}}</h1>
 {%endfor%}
 
 </body>

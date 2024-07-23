@@ -11,12 +11,14 @@ firebaseConfig = {
   'storageBucket': "auth-lab-5fcd3.appspot.com",
   'messagingSenderId': "105981837328",
   'appId': "1:105981837328:web:e4f6a7bc3342288d314a95",
-  "databaseURL":""
+  "databaseURL":"https://auth-lab-5fcd3-default-rtdb.europe-west1.firebasedatabase.app/"
   }
 firebase = pyrebase.initialize_app(firebaseConfig)
+db =firebase.database()
 auth = firebase.auth()
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config['SECRET_KEY'] = 'super-secret-key'
+
 
 
 @app.route('/signin', methods=['GET', 'POST'])
@@ -35,12 +37,15 @@ def signin():
    
 @app.route('/home', methods=['GET', 'POST'])
 def home():
-  if request.method=='GET':
+  if request.method == 'GET':
     return render_template("home.html")
   else:
-    quote = request.form['quote']
-    login_session['quotes'].append(quote)
+    #quote = request.form['quote']
+    
+    #login_session['quotes'].append(quote)
     login_session.modified = True
+    quote={'quote':request.form['quote'],'saidby':request.form['who'],'uid':login_session['user']['localId']}
+    db.child("Quotes").push(quote)
 
     print('x')
     print(login_session['quotes'])
@@ -53,14 +58,19 @@ def signup():
   if request.method == 'POST':
     email = request.form['email']
     password = request.form['password']
+    username = request.form['username1']
+    name = request.form['name1']
+    user={"email":email,"username":username,"name":name}
+
     try:
       login_session['user'] = auth.create_user_with_email_and_password(email, password)
-
       login_session['quotes']= []
+      UID =login_session['user']['localId']
+      db.child("Users").child(UID).set(user)
       return redirect(url_for('home'))
-    except:
+    except Exception as e:
       error = "Authentication failed"
-      print(error)
+      print(e)
     return render_template('signin.html')
   else:
     return render_template("signup.html")
@@ -73,7 +83,8 @@ def thanks():
 
 @app.route('/display', methods=['GET', 'POST'])
 def display():
-  return render_template("display.html",quotesl = login_session['quotes'])
+  quoted=db.child("Quotes").get().val()
+  return render_template("display.html",quotesl = quoted )
 
 
 @app.route('/signout', methods=['GET', 'POST'])
