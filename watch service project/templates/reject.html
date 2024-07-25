@@ -3,15 +3,11 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{ url_for('static', filename='style.css')}">
 	<title></title>
 </head>
 <body>
-
-	<h1> Qoutes:</h1>
-
-{%for i in quotesl.values()%}
-<h1>{{i['name'] ,i['quote]']}}</h1>
-{%endfor%}
-
+<h1>You rejected the offer!</h1>
+<a href="/signout">signout</a>
 </body>
 </html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{ url_for('static', filename='style.css')}">
+	<title></title>
+</head>
+<body>
+{%for i in consumers %}
+<a href="{{url_for('offer',ida=i)}}"> info:{{consumers[i]['name']}}, {{consumers[i]['kind']}}, {{consumers[i]['engine']}}, {{consumers[i]['email']}}</a>
+{%endfor%}</h1>
+</body>
+</html>

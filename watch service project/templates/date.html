@@ -1,11 +1,109 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="stylesheet" type="text/css" href="../static/style.css">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>date</title>
+	<link rel="stylesheet" type="text/css" href="{ url_for('static', filename='style.css')}">
+	<title>offers</title>
+	<style type="text/css">
+		/* Importing the Roboto font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container */
+.container {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Headers */
+h1, h2 {
+    margin: 0 0 20px;
+    color: #333;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: 400;
+    color: #555;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.options {
+    margin-bottom: 20px;
+    text-align: left;
+    width: 100%;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #444;
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    margin-right: 10px;
+}
+
+.submit-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+	</style>
 </head>
+<h1>Here are your offers!</h1>
 <body>
-<h1>wooo</h1>
+
+<h1>{{p}}</h1>
+<br>
+<form action="/decision" method="POST">
+    <input type="radio" name="opt" value="reject">reject
+    <input type="radio" name="opt" value="accept">accept
+<br>
+     <input type="submit" value="Submit">
+</form>
 </body>
 </html>
